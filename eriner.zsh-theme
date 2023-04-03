@@ -11,6 +11,7 @@ _prompt_eriner_main() {
   _prompt_eriner_end
 }
 
+
 ### Segment drawing
 # Utility functions to make it easy and re-usable to draw segmented prompts.
 
@@ -49,6 +50,7 @@ _prompt_eriner_status() {
   if (( RANGER_LEVEL )) segment+=' %F{cyan}r'
   if [[ -n ${VIRTUAL_ENV} ]] segment+=" %F{cyan}${VIRTUAL_ENV:t}"
   if [[ -n ${SSH_TTY} ]] segment+=" %F{%(!.yellow.default)}%n@%m"
+  if [[ -n ${USER} ]] segment+=" %F{yellow}${USER}"
   if [[ -n ${segment} ]]; then
     _prompt_eriner_segment ${STATUS_COLOR} "${segment} "
   fi
@@ -83,7 +85,7 @@ typeset -g VIRTUAL_ENV_DISABLE_PROMPT=1
 
 setopt nopromptbang prompt{cr,percent,sp,subst}
 
-zstyle ':zim:prompt-pwd:fish-style' dir-length 1
+zstyle ':zim:prompt-pwd:fish-style' dir-length 20
 
 typeset -gA git_info
 if (( ${+functions[git-info]} )); then
@@ -99,4 +101,5 @@ if (( ${+functions[git-info]} )); then
 fi
 
 PS1='$(_prompt_eriner_main)'
-unset RPS1
+RPS1='%F{015}%T%f'
+#unset RPS1
