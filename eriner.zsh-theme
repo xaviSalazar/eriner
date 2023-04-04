@@ -100,6 +100,10 @@ if (( ${+functions[git-info]} )); then
   autoload -Uz add-zsh-hook && add-zsh-hook precmd git-info
 fi
 
+# Cursor is a vertical line
+echo -e -n "\x1b[\x35 q" # Blinking
+# left prompt
 PS1='$(_prompt_eriner_main)'
+# right prompt
 RPS1='%F{015}%T%f'
 #unset RPS1
