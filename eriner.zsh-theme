@@ -33,7 +33,7 @@ _prompt_eriner_standout_segment() {
 
 # End the prompt, closing last segment.
 _prompt_eriner_end() {
-  print -n "%k%F{${BG_COLOR}}%f "
+  print -n "%k%F{${BG_COLOR}}\n%f "
 }
 
 ### Prompt components
