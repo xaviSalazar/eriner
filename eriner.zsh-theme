@@ -104,5 +104,5 @@ echo -e -n "\x1b[\x35 q" # Blinking
 # left prompt
 PS1='$(_prompt_eriner_main)'
 # right prompt
-RPS1='%F{015}%T%f'
+RPS1='%F{015}$(date "+%T - %d-%m-%Y")%f'
 #unset RPS1
