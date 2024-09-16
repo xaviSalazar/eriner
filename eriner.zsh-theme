@@ -14,7 +14,7 @@ _prompt_eriner_main() {
 # time
 _prompt_real_time() {
     local color="%{$fg_no_bold[cyan]%}";                    # color in PROMPT need format in %{XXX%} which is not same with echo
-    local time="[$(date +%H:%M:%S)]";
+    local time="$(date +%H:%M) ";
     local color_reset="%{$reset_color%}";
     print -n "${color}${time}${color_reset}";
 }
