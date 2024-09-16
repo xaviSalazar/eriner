@@ -4,13 +4,20 @@ _prompt_eriner_main() {
   # This runs in a subshell
   RETVAL=${?}
   BG_COLOR=
-
+  _prompt_real_time
   _prompt_eriner_status
   _prompt_eriner_pwd
   _prompt_eriner_git
   _prompt_eriner_end
 }
 
+# time
+_prompt_real_time() {
+    local color="%{$fg_no_bold[cyan]%}";                    # color in PROMPT need format in %{XXX%} which is not same with echo
+    local time="[$(date +%H:%M:%S)]";
+    local color_reset="%{$reset_color%}";
+    print -n "${color}${time}${color_reset}";
+}
 
 ### Segment drawing
 # Utility functions to make it easy and re-usable to draw segmented prompts.
@@ -49,6 +56,7 @@ _prompt_eriner_status() {
   if (( $(jobs -l | wc -l) )) segment+=' %F{cyan}⚙'
   if (( RANGER_LEVEL )) segment+=' %F{cyan}r'
   if [[ -n ${VIRTUAL_ENV} ]] segment+=" %F{cyan}${VIRTUAL_ENV:t}"
+  if [[ -n ${USER} ]] segment+=" %F{yellow}%n%F{%(!.yellow.default)}@%m"
   if [[ -n ${SSH_TTY} ]] segment+=" %F{yellow}%n%F{%(!.yellow.default)}@%m"
   if [[ -n ${segment} ]]; then
     _prompt_eriner_segment ${STATUS_COLOR} "${segment} "
@@ -104,5 +112,5 @@ echo -e -n "\x1b[\x35 q" # Blinking
 # left prompt
 PS1='$(_prompt_eriner_main)'
 # right prompt
-RPS1='%F{015}$(date "+%T - %d-%m-%Y")%f'
-#unset RPS1
+#RPS1='%F{015}$(date "+%T - %d-%m-%Y")%f'
+unset RPS1
