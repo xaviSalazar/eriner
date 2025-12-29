@@ -101,12 +101,18 @@ zstyle ':zim:prompt-pwd:fish-style' dir-length 20
 
 typeset -gA git_info
 if (( ${+functions[git-info]} )); then
+  zstyle ':zim:git-info' verbose yes
   zstyle ':zim:git-info:branch' format ' %b'
+  zstyle ':zim:git-info:ahead'  format ' ⇡%A'
+  zstyle ':zim:git-info:behind' format ' ⇣%B' 
+  zstyle ':zim:git-info:indexed'   format ' ●%i'   # staged
+  zstyle ':zim:git-info:unindexed' format ' ✚%I'   # modified, not staged
+  zstyle ':zim:git-info:untracked' format ' …%u'   # untracked
   zstyle ':zim:git-info:commit' format '➦ %c'
   zstyle ':zim:git-info:action' format ' (%s)'
   zstyle ':zim:git-info:dirty' format ' ±'
   zstyle ':zim:git-info:keys' format \
-      'prompt' '%b%c%s' \
+      'prompt' '%b%c%A%B%i%I%u%s' \
       'dirty' '%D'
 
   autoload -Uz add-zsh-hook && add-zsh-hook precmd git-info
